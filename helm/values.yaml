@@ -1,0 +1,9 @@
+# Default values for fdk.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+##publishers (api)
+PUBLISHERS_API_MEMORY: "1500Mi"
+
+##mongodb
+PUBAPI_MONGODB_MEMORY: "1000Mi"

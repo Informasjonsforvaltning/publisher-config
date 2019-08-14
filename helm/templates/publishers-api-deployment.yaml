@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    fdk.service: publishers-api
+  name: publishers-api
+  namespace: {{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        fdk.service: publishers-api
+    spec:
+      containers:
+      - env:
+        - name: PUBAPI_MONGO_USERNAME
+          value: {{ required "Missing value PUBAPI_MONGO_USERNAME" .Values.PUBAPI_MONGO_USERNAME }}
+        - name: PUBAPI_MONGO_PASSWORD
+          value: {{ required "Missing value PUBAPI_MONGO_PASSWORD" .Values.PUBAPI_MONGO_PASSWORD }}
+        name: publishers-api
+        image: {{ required "Missing value PUBLISHERS_API_IMAGE" .Values.PUBLISHERS_API_IMAGE }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: {{ required "Missing value PUBLISHERS_API_MEMORY" .Values.PUBLISHERS_API_MEMORY | quote }}
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      restartPolicy: Always
+status: {}
