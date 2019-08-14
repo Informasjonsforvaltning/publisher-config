@@ -1,0 +1,14 @@
+{{ if (.Values.PUBAPI_INGRESSROUTER) and .Values.PUBAPI_INGRESSROUTER "true" }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ required "Missing value PUBAPI_INGRESSNAME" .Values.PUBAPI_INGRESSNAME }}
+  namespace: {{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.global-static-ip-name: {{ required "Missing value PUBAPI_INGRESS_IP_NAME" .Values.PUBAPI_INGRESS_IP_NAME }}
+spec:
+  backend:
+    serviceName: publishers-api
+    servicePort: 8080
+{{ else }} {{ end }}
