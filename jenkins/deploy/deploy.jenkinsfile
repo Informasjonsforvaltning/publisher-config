@@ -245,7 +245,7 @@ node ('helm-kubectl'){
         gcloud config set compute/zone europe-north1
         """)
       sh returnStatus: true, script: 'git clone https://github.com/Informasjonsforvaltning/publisher-config.git'
-      sh returnStatus: true, script: "helm template -f values_environment.yaml -f ${masterversion}.yaml publishers-api-config/helm/ > kubectlapply.yaml"
+      sh returnStatus: true, script: "helm template -f values_environment.yaml -f ${masterversion}.yaml publisher-config/helm/ > kubectlapply.yaml"
       sh returnStatus: true, script: 'cat kubectlapply.yaml'
     } // stage Authenticating wiht cluster
 
@@ -387,7 +387,7 @@ except Exception as e:
       }
     }
     stage("Generate env version files") {
-      build job: 'pubapi-deploy-scripts/pub-create-version-overview', wait: false
+      build job: 'publishers-deploy-scripts/pub-create-version-overview', wait: false
     }
   }
 }
