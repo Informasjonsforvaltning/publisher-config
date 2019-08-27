@@ -14,8 +14,11 @@ if (params.deploy_environment == "prod" && params.deploy_environment != params.p
 
 //decide where to pick wersions to deploy to the different environments
 def get_masterversion_location(def env) {
-  def env_location = [ "ut1": "${master_versions_location_base}/develop"
-                      ,"prod": "${master_versions_location_base}/deployed/ut1"
+  def env_location = [ "ut1": "${master_versions_location_base}/develop",
+                       "st1": "${master_versions_location_base}/deployed/ut1",
+                       "it1": "${master_versions_location_base}/deployed/st1",
+                       "prod": "${master_versions_location_base}/deployed/it1",
+                       "demo": "${master_versions_location_base}/deployed/it1"
                       ]
   if (env_location.containsKey(env)) {
     return env_location[env]
