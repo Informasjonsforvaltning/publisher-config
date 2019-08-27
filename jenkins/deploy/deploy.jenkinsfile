@@ -12,7 +12,7 @@ if (params.deploy_environment == "prod" && params.deploy_environment != params.p
   return
 }
 
-
+//decide where to pick wersions to deploy to the different environments
 def get_masterversion_location(def env) {
   def env_location = [ "ut1": "${master_versions_location_base}/develop"
                       ,"prod": "${master_versions_location_base}/deployed/ut1"
@@ -27,30 +27,31 @@ def get_masterversion_location(def env) {
   return ""
 }
 
+//select GCP project to deploy to. This project deploys to fdk clusters
 def get_project_fom_env(def env){
   if (env=="prod") {
-    return "pubapi-prod"
+    return "fdk-prod"
   } else if (env.startsWith("tmp")) {
-    return "pubapi-e2e"
+    return "fdk-e2e"
   }
-  return "pubapi-dev"
+  return "fdk-dev"
 }
 
 def get_host_from_env(def env) {
   if (env=="prod") {
-    return "data.brreg.no"
+    return "publishers-api.fellesdatakatalog.brreg.no"
   } else if (env.startsWith("tmp")) {
-    return "pubapi.${env}.pubapi-dev.brreg.no"
+    return "publishers-api.${env}.fellesdatakatalog.brreg.no"
   }
-  return "pubapi.${env}.pubapi-dev.brreg.no"
+  return "publishers-api.${env}.fellesdatakatalog.brreg.no"
 }
 def get_url_from_env(def env) {
   if (env=="prod") {
-    return "https://data.brreg.no/publishers"
+    return "https://publishers-api.fellesdatakatalog.brreg.no/publishers"
   } else if (env.startsWith("tmp")) {
-    return "http://${ingress_ip} (Host: pubapi.${env}.pubapi-dev.brreg.no use ModHeader(chrome) to access.)"
+    return "http://${ingress_ip} (Host: publishers-api.${env}.fellesdatakatalog.brreg.no use ModHeader(chrome) to access.)"
   }
-  return "http://pubapi.${env}.pubapi-dev.brreg.no/"
+  return "http://publishers-api.${env}.fellesdatakatalog.brreg.no/"
 }
 
 def hash_to_masterversion(String sha) {
