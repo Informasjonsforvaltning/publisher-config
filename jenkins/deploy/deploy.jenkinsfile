@@ -387,7 +387,7 @@ except Exception as e:
       }
     }
     stage("Generate env version files") {
-      build job: 'pubapi-deploy-scripts/pubapi-create-version-overview', wait: false
+      build job: 'pubapi-deploy-scripts/pub-create-version-overview', wait: false
     }
   }
 }
