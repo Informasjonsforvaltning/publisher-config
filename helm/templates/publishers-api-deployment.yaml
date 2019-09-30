@@ -22,7 +22,7 @@ spec:
         - name: PUBAPI_MONGO_PASSWORD
           value: {{ required "Missing value PUBAPI_MONGO_PASSWORD" .Values.PUBAPI_MONGO_PASSWORD }}
         name: publishers-api
-        image: {{ required "Missing value PUBLISHERS_API_IMAGE" .Values.PUBLISHERS_API_IMAGE }}
+        image: {{ required "Missing value ORGANIZATION_CATALOGUE_IMAGE" .Values.ORGANIZATION_CATALOGUE_IMAGE }}
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
