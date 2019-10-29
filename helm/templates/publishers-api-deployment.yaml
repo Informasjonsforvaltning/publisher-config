@@ -21,6 +21,8 @@ spec:
           value: {{ required "Missing value PUBAPI_MONGO_USERNAME" .Values.PUBAPI_MONGO_USERNAME }}
         - name: PUBAPI_MONGO_PASSWORD
           value: {{ required "Missing value PUBAPI_MONGO_PASSWORD" .Values.PUBAPI_MONGO_PASSWORD }}
+        - name: ENHETSREGISTERET_PROXY_URL
+          value: {{ .Values.ENHETSREGISTERET_PROXY_URL }}
         name: publishers-api
         image: {{ required "Missing value ORGANIZATION_CATALOGUE_IMAGE" .Values.ORGANIZATION_CATALOGUE_IMAGE }}
         imagePullPolicy: Always
