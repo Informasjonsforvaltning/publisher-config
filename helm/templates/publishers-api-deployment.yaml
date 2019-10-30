@@ -3,8 +3,8 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    fdk.service: publishers-api
-  name: publishers-api
+    fdk.service: organization-catalogue
+  name: organization-catalogue
   namespace: {{ required "Missing value NAMESPACE" .Values.NAMESPACE }}
 spec:
   replicas: 1
@@ -13,7 +13,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        fdk.service: publishers-api
+        fdk.service: organization-catalogue
     spec:
       containers:
       - env:
@@ -23,7 +23,7 @@ spec:
           value: {{ required "Missing value PUBAPI_MONGO_PASSWORD" .Values.PUBAPI_MONGO_PASSWORD }}
         - name: ENHETSREGISTERET_PROXY_URL
           value: {{ .Values.ENHETSREGISTERET_PROXY_URL }}
-        name: publishers-api
+        name: organization-catalogue
         image: {{ required "Missing value ORGANIZATION_CATALOGUE_IMAGE" .Values.ORGANIZATION_CATALOGUE_IMAGE }}
         imagePullPolicy: Always
         ports:

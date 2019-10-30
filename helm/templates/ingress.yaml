@@ -9,6 +9,6 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: {{ required "Missing value PUBAPI_INGRESS_IP_NAME" .Values.PUBAPI_INGRESS_IP_NAME }}
 spec:
   backend:
-    serviceName: publishers-api
+    serviceName: organization-catalogue
     servicePort: 8080
 {{ else }} {{ end }}
